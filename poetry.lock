@@ -1,4 +1,12 @@
 [[package]]
+name = "aiofiles"
+version = "23.1.0"
+description = "File support for asyncio."
+category = "main"
+optional = false
+python-versions = ">=3.7,<4.0"
+
+[[package]]
 name = "aiohttp"
 version = "3.8.3"
 description = "Async http client/server framework (asyncio)"
@@ -28,6 +36,31 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 frozenlist = ">=1.1.0"
+
+[[package]]
+name = "anyio"
+version = "3.6.2"
+description = "High level compatibility layer for multiple asynchronous event loop implementations"
+category = "main"
+optional = false
+python-versions = ">=3.6.2"
+
+[package.dependencies]
+idna = ">=2.8"
+sniffio = ">=1.1"
+
+[package.extras]
+doc = ["packaging", "sphinx-rtd-theme", "sphinx-autodoc-typehints (>=1.2.0)"]
+test = ["coverage[toml] (>=4.5)", "hypothesis (>=4.0)", "pytest (>=7.0)", "pytest-mock (>=3.6.1)", "trustme", "contextlib2", "uvloop (<0.15)", "mock (>=4)", "uvloop (>=0.15)"]
+trio = ["trio (>=0.16,<0.22)"]
+
+[[package]]
+name = "appdirs"
+version = "1.4.4"
+description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "argon2-cffi"
@@ -83,6 +116,43 @@ docs = ["furo", "sphinx", "myst-parser", "zope.interface", "sphinx-notfound-page
 tests = ["attrs", "zope.interface"]
 tests-no-zope = ["hypothesis", "pympler", "pytest (>=4.3.0)", "pytest-xdist", "cloudpickle", "mypy (>=0.971,<0.990)", "pytest-mypy-plugins"]
 tests_no_zope = ["hypothesis", "pympler", "pytest (>=4.3.0)", "pytest-xdist", "cloudpickle", "mypy (>=0.971,<0.990)", "pytest-mypy-plugins"]
+
+[[package]]
+name = "beautifulsoup4"
+version = "4.12.2"
+description = "Screen-scraping library"
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.dependencies]
+soupsieve = ">1.2"
+
+[package.extras]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
+
+[[package]]
+name = "blinker"
+version = "1.6"
+description = "Fast, simple object-to-object and broadcast signaling"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+typing-extensions = "*"
+
+[[package]]
+name = "bs4"
+version = "0.0.1"
+description = "Dummy package for Beautiful Soup"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+beautifulsoup4 = "*"
 
 [[package]]
 name = "certifi"
@@ -153,12 +223,28 @@ ssh = ["bcrypt (>=3.1.5)"]
 test = ["pytest (>=6.2.0)", "pytest-benchmark", "pytest-cov", "pytest-subtests", "pytest-xdist", "pretend", "iso8601", "pytz", "hypothesis (>=1.11.4,!=3.79.2)"]
 
 [[package]]
+name = "cssselect"
+version = "1.2.0"
+description = "cssselect parses CSS3 Selectors and translates them to XPath 1.0"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "debugpy"
 version = "1.6.5"
 description = "An implementation of the Debug Adapter Protocol for Python"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "fake-useragent"
+version = "1.1.3"
+description = "Up-to-date simple useragent faker with real world database"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "flask"
@@ -170,7 +256,6 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 click = ">=8.0"
-importlib-metadata = {version = ">=3.6.0", markers = "python_version < \"3.10\""}
 itsdangerous = ">=2.0"
 Jinja2 = ">=3.0"
 Werkzeug = ">=2.2.2"
@@ -188,6 +273,101 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "h11"
+version = "0.14.0"
+description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
+name = "h2"
+version = "4.1.0"
+description = "HTTP/2 State-Machine based protocol implementation"
+category = "main"
+optional = false
+python-versions = ">=3.6.1"
+
+[package.dependencies]
+hpack = ">=4.0,<5"
+hyperframe = ">=6.0,<7"
+
+[[package]]
+name = "hpack"
+version = "4.0.0"
+description = "Pure-Python HPACK header compression"
+category = "main"
+optional = false
+python-versions = ">=3.6.1"
+
+[[package]]
+name = "httpcore"
+version = "0.16.3"
+description = "A minimal low-level HTTP client."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+anyio = ">=3.0,<5.0"
+certifi = "*"
+h11 = ">=0.13,<0.15"
+sniffio = ">=1.0.0,<2.0.0"
+
+[package.extras]
+http2 = ["h2 (>=3,<5)"]
+socks = ["socksio (>=1.0.0,<2.0.0)"]
+
+[[package]]
+name = "httpx"
+version = "0.23.3"
+description = "The next generation HTTP client."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+certifi = "*"
+httpcore = ">=0.15.0,<0.17.0"
+rfc3986 = {version = ">=1.3,<2", extras = ["idna2008"]}
+sniffio = "*"
+
+[package.extras]
+brotli = ["brotli", "brotlicffi"]
+cli = ["click (>=8.0.0,<9.0.0)", "pygments (>=2.0.0,<3.0.0)", "rich (>=10,<13)"]
+http2 = ["h2 (>=3,<5)"]
+socks = ["socksio (>=1.0.0,<2.0.0)"]
+
+[[package]]
+name = "hypercorn"
+version = "0.14.3"
+description = "A ASGI Server based on Hyper libraries and inspired by Gunicorn"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+h11 = "*"
+h2 = ">=3.1.0"
+priority = "*"
+toml = "*"
+wsproto = ">=0.14.0"
+
+[package.extras]
+h3 = ["aioquic (>=0.9.0,<1.0)"]
+docs = ["pydata-sphinx-theme"]
+trio = ["trio (>=0.11.0)"]
+uvloop = ["uvloop"]
+
+[[package]]
+name = "hyperframe"
+version = "6.0.1"
+description = "HTTP/2 framing layer for Python"
+category = "main"
+optional = false
+python-versions = ">=3.6.1"
+
+[[package]]
 name = "idna"
 version = "3.4"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -197,7 +377,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "importlib-metadata"
-version = "6.0.0"
+version = "6.2.0"
 description = "Read metadata from Python packages"
 category = "main"
 optional = false
@@ -258,6 +438,20 @@ MarkupSafe = ">=2.0"
 i18n = ["Babel (>=2.7)"]
 
 [[package]]
+name = "lxml"
+version = "4.9.2"
+description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, != 3.4.*"
+
+[package.extras]
+cssselect = ["cssselect (>=0.7)"]
+html5 = ["html5lib"]
+htmlsoup = ["beautifulsoup4"]
+source = ["Cython (>=0.29.7)"]
+
+[[package]]
 name = "markupsafe"
 version = "2.1.2"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -288,6 +482,14 @@ description = "Core utilities for Python packages"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "parse"
+version = "1.19.0"
+description = "parse() is the opposite of format()"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "parso"
@@ -343,6 +545,14 @@ testing = ["pytest-benchmark", "pytest"]
 dev = ["tox", "pre-commit"]
 
 [[package]]
+name = "priority"
+version = "2.0.0"
+description = "A pure-Python implementation of the HTTP/2 priority tree"
+category = "main"
+optional = false
+python-versions = ">=3.6.1"
+
+[[package]]
 name = "protobuf"
 version = "4.21.12"
 description = ""
@@ -367,12 +577,52 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "pyee"
+version = "8.2.2"
+description = "A port of node.js's EventEmitter to python."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pyflakes"
 version = "2.5.0"
 description = "passive checker of Python programs"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
+
+[[package]]
+name = "pyppeteer"
+version = "1.0.2"
+description = "Headless chrome/chromium automation library (unofficial port of puppeteer)"
+category = "main"
+optional = false
+python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+appdirs = ">=1.4.3,<2.0.0"
+certifi = ">=2021"
+importlib-metadata = ">=1.4"
+pyee = ">=8.1.0,<9.0.0"
+tqdm = ">=4.42.1,<5.0.0"
+urllib3 = ">=1.25.8,<2.0.0"
+websockets = ">=10.0,<11.0"
+
+[[package]]
+name = "pyquery"
+version = "2.0.0"
+description = "A jquery-like library for python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+cssselect = ">=1.2.0"
+lxml = ">=2.1"
+
+[package.extras]
+test = ["requests", "webob", "webtest", "pytest", "pytest-cov"]
 
 [[package]]
 name = "pyseto"
@@ -407,7 +657,7 @@ test = ["coverage", "pytest-cov", "pytest", "pyflakes", "pycodestyle", "pylint"]
 
 [[package]]
 name = "pytoolconfig"
-version = "1.2.4"
+version = "1.2.5"
 description = "Python tool configuration"
 category = "dev"
 optional = false
@@ -420,9 +670,42 @@ tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
 
 [package.extras]
 doc = ["tabulate (>=0.8.9)", "sphinx (>=4.5.0)"]
-gen_docs = ["sphinx (>=4.5.0)", "sphinx-autodoc-typehints (>=1.18.1)", "sphinx-rtd-theme (>=1.0.0)", "pytoolconfig"]
+gendocs = ["sphinx (>=4.5.0)", "sphinx-autodoc-typehints (>=1.18.1)", "sphinx-rtd-theme (>=1.0.0)", "pytoolconfig"]
 global = ["platformdirs (>=1.4.4)"]
 validation = ["pydantic (>=1.7.4)"]
+
+[[package]]
+name = "quart"
+version = "0.18.3"
+description = "A Python ASGI web microframework with the same API as Flask"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+aiofiles = "*"
+blinker = "*"
+click = ">=8.0.0"
+hypercorn = ">=0.11.2"
+itsdangerous = "*"
+jinja2 = "*"
+markupsafe = "*"
+werkzeug = ">=2.2.0"
+
+[package.extras]
+docs = ["pydata-sphinx-theme"]
+dotenv = ["python-dotenv"]
+
+[[package]]
+name = "quart-cors"
+version = "0.6.0"
+description = "A Quart extension to provide Cross Origin Resource Sharing, access control, support"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+quart = ">=0.15"
 
 [[package]]
 name = "replit"
@@ -493,6 +776,37 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "requests-html"
+version = "0.10.0"
+description = "HTML Parsing for Humans."
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.dependencies]
+bs4 = "*"
+fake-useragent = "*"
+parse = "*"
+pyppeteer = ">=0.0.14"
+pyquery = "*"
+requests = "*"
+w3lib = "*"
+
+[[package]]
+name = "rfc3986"
+version = "1.5.0"
+description = "Validating URI References per RFC 3986"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+idna = {version = "*", optional = true, markers = "extra == \"idna2008\""}
+
+[package.extras]
+idna2008 = ["idna"]
+
+[[package]]
 name = "rope"
 version = "1.7.0"
 description = "a python refactoring library..."
@@ -508,10 +822,26 @@ dev = ["pytest (>=7.0.1)", "pytest-timeout (>=2.1.0)", "build (>=0.7.0)", "pre-c
 doc = ["pytoolconfig", "sphinx (>=4.5.0)", "sphinx-autodoc-typehints (>=1.18.1)", "sphinx-rtd-theme (>=1.0.0)"]
 
 [[package]]
+name = "sniffio"
+version = "1.3.0"
+description = "Sniff out which async library your code is running under"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
+name = "soupsieve"
+version = "2.4"
+description = "A modern CSS selector implementation for Beautiful Soup."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -522,6 +852,23 @@ description = "A lil' TOML parser"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "tqdm"
+version = "4.65.0"
+description = "Fast, Extensible Progress Meter"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[package.extras]
+dev = ["py-make (>=0.1.0)", "twine", "wheel"]
+notebook = ["ipywidgets (>=6)"]
+slack = ["slack-sdk"]
+telegram = ["requests"]
 
 [[package]]
 name = "typing-extensions"
@@ -553,6 +900,22 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
+name = "w3lib"
+version = "2.1.1"
+description = "Library of web-related functions"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
+name = "websockets"
+version = "10.4"
+description = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "werkzeug"
 version = "2.2.2"
 description = "The comprehensive WSGI web application library."
@@ -573,6 +936,17 @@ description = "A patch parsing and application library."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "wsproto"
+version = "1.2.0"
+description = "WebSockets state-machine based protocol implementation"
+category = "main"
+optional = false
+python-versions = ">=3.7.0"
+
+[package.dependencies]
+h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "yapf"
@@ -596,69 +970,100 @@ multidict = ">=4.0"
 
 [[package]]
 name = "zipp"
-version = "3.11.0"
+version = "3.15.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["sphinx (>=3.5)", "jaraco.packaging (>=9)", "rst.linker (>=1.9)", "furo", "jaraco.tidelift (>=1.4)"]
-testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-cov", "pytest-enabler (>=1.3)", "jaraco.itertools", "func-timeout", "jaraco.functools", "more-itertools", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)", "pytest-flake8"]
+docs = ["sphinx (>=3.5)", "jaraco.packaging (>=9)", "rst.linker (>=1.9)", "furo", "sphinx-lint", "jaraco.tidelift (>=1.4)"]
+testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-cov", "pytest-enabler (>=1.3)", "jaraco.itertools", "jaraco.functools", "more-itertools", "big-o", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)", "pytest-flake8"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.8.0,<3.9"
-content-hash = "f328c469a46d9cb95c79b10c69318f07ccca3f40cc6eb43ef51c87ad2ff1879b"
+python-versions = ">=3.10.0,<3.11"
+content-hash = "8d06d05f2d1d5ab4e1d6888ac3c11e412032a8f4d2a05488491b27f8307c231f"
 
 [metadata.files]
+aiofiles = []
 aiohttp = []
 aiosignal = []
+anyio = []
+appdirs = []
 argon2-cffi = []
 argon2-cffi-bindings = []
 async-timeout = []
 attrs = []
+beautifulsoup4 = []
+blinker = []
+bs4 = []
 certifi = []
 cffi = []
 charset-normalizer = []
 click = []
 colorama = []
 cryptography = []
+cssselect = []
 debugpy = []
+fake-useragent = []
 flask = []
 frozenlist = []
+h11 = []
+h2 = []
+hpack = []
+httpcore = []
+httpx = []
+hypercorn = []
+hyperframe = []
 idna = []
 importlib-metadata = []
 iso8601 = []
 itsdangerous = []
 jedi = []
 jinja2 = []
+lxml = []
 markupsafe = []
 multidict = []
 numpy = []
 packaging = []
+parse = []
 parso = []
 passlib = []
 platformdirs = []
 pluggy = []
+priority = []
 protobuf = []
 pycparser = []
 pycryptodomex = []
+pyee = []
 pyflakes = []
+pyppeteer = []
+pyquery = []
 pyseto = []
 python-lsp-jsonrpc = []
 pytoolconfig = []
+quart = []
+quart-cors = []
 replit = []
 replit-python-lsp-server = []
 requests = []
+requests-html = []
+rfc3986 = []
 rope = []
+sniffio = []
+soupsieve = []
 toml = []
 tomli = []
+tqdm = []
 typing-extensions = []
 ujson = []
 urllib3 = []
+w3lib = []
+websockets = []
 werkzeug = []
 whatthepatch = []
+wsproto = []
 yapf = []
 yarl = []
 zipp = []

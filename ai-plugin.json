@@ -1,22 +1,22 @@
 {
   "schema_version": "v1",
-  "name_for_human": "Browsing plugin",
-  "name_for_model": "Browsing plugin",
+  "name_for_human": "Web Browsing Plugin",
+  "name_for_model": "WebBrowsingPlugin",
   "description_for_human": "Gives ChatGPT access to browsing the web",
-  "description_for_model": "Use this plugin to access the internet. You will be sending the URL to the plugin, and plugin will calling the wget command at that URL and sending to you back the response. Use this plugin as many times as you think is necessary to be able to fulfill the user's query.",
+  "description_for_model": "Use this Web Browsing Plugin to access the internet. You will be sending the URL to the plugin, and the plugin will fetch the content of the URL, returning the response in plain text. Use this plugin as many times as you think is necessary to fulfill the user's query.",
   "auth": {
     "type": "service_http",
     "authorization_type": "bearer",
     "verification_tokens": {
-      "openai": "4c4ad45d818241998a5567012f97914e"
+      "openai": "aaa0ab952e054029ba2326183a8d4b56"
     }
   },
   "api": {
     "type": "openapi",
-    "url": "https://shoppingassistantchatgptplugin.vovakhromakov.repl.co/openapi.yaml",
+    "url": "https://chatgpt-browsing-plugin.vovakhromakov.repl.co/openapi.yaml",
     "is_user_authenticated": false
   },
-  "logo_url": "https://shoppingassistantchatgptplugin.vovakhromakov.repl.co/logo.png",
+  "logo_url": "https://chatgpt-browsing-plugin.vovakhromakov.repl.co/logo.png",
   "contact_email": "support@example.com",
   "legal_info_url": "http://www.example.com/legal"
 }

@@ -1,22 +1,22 @@
 openapi: 3.0.1
 info:
-  title: Browsing plugin
-  description: Use this plugin to browse the web
+  title: Web Browsing Plugin
+  description: Use this plugin to fetch web content in plain text
   version: 'v1'
 servers:
-  - url: https://shoppingassistantchatgptplugin.vovakhromakov.repl.co
+  - url: https://chatgpt-browsing-plugin.vovakhromakov.repl.co
 paths:
   /callURL:
     get:
       operationId: callURL
-      summary: Get the html contents at given URL
+      summary: Fetch the text content of a given URL
       parameters:
         - in: query
           name: url
           required: true
           schema:
             type: string
-          description: The URL to fetch the HTML content from
+          description: The URL to fetch the text content from
       responses:
         "200":
           description: OK
@@ -39,4 +39,4 @@ components:
   schemas:
     callURL:
       type: string
-      description: html contents of the website at the given URL
+      description: Text content of the website at the given URL
