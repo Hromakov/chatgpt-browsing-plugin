@@ -1,24 +1,29 @@
 openapi: 3.0.1
 info:
   title: Web Browsing Plugin
-  description: Use this plugin to fetch web content from several URLs (at least 4) within a specified range of words
+  description: Use this plugin to fetch web content from several URLs
   version: 'v1'
 servers:
   - url: https://chatgpt-browsing-plugin.vovakhromakov.repl.co
 paths:
   /getContentsOfPages:
-    get:
+    post:
       operationId: getContentsOfPages
-      summary: Fetch the contents of given URLs within a specified range of words
-      parameters:
-        - in: query
-          name: data
-          required: true
-          schema:
-            type: string
-            example: '[{"url":"https://google.com", "start": 0, "end": 5000}]'
-          description: 
-            A URL-encoded JSON string containing a list of objects, each with a URL and its respective start and end points. Ideal total word range should be around 12000
+      summary: Fetch the contents of given URLs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                urls:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 4
+                  description: The list of URL 
+
       responses:
         "200":
           description: OK
@@ -28,7 +33,7 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
-                description: A JSON object with the filtered content for each URL
+                description: A JSON object with the filtered content for each URL, starting from human readable text followed by a list of links
         "400":
           description: Bad Request
           content:

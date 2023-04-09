@@ -49,32 +49,31 @@ def filter_html(html, start, end):
     limited_words = words[start:end]
     return ' '.join(limited_words)
 
-@app.route('/getContentsOfPages', methods=['GET'])
+@app.route('/getContentsOfPages', methods=['POST'])
 async def getContentsOfPages():
     assert_auth_header(request)
 
-    input_data = request.args.get('data', None)
+    input_data = await request.get_json()
 
-    if not input_data:
+    if not input_data or not input_data.get('urls'):
         return quart.Response(response='Missing input data', status=400)
 
-    input_data = json.loads(input_data)
-
     results = {}
-    for url_data in input_data:
-        url = url_data.get('url', None)
-        start = int(url_data.get('start', 0))
-        end = int(url_data.get('end', -1))
+    print(input_data)
+    for url in input_data['urls']:
+        print(url)
+        #url = url_data.get('url', None)
 
         if not url:
             continue
 
         raw_html = await fetch_url(url)
-        filtered_html = filter_html(raw_html, start, end)
+        filtered_html = filter_html(raw_html, 0, -1)
 
         results[url] = filtered_html
 
     return quart.jsonify(results)
+
 
 
 @app.get("/logo.png")
