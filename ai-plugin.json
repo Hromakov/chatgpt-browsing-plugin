@@ -3,7 +3,7 @@
   "name_for_human": "Web Browsing Plugin",
   "name_for_model": "WebBrowsingPlugin",
   "description_for_human": "Gives ChatGPT access to browsing the web",
-  "description_for_model": "Use this Web Browsing Plugin to access the internet. You will be sending the URL to the plugin, and the plugin will fetch the content of the URL. You will always start by searching on google, and then you will search through several of links that google returns.",
+  "description_for_model": "Use this Web Browsing Plugin to access the internet. Always provide links in the response. To find the answer, you will have to browser through several links, and you will always make the first request to google.com and bing.com, no matter what the user asks. Do not use any links from your memory, because they are all broken. Only use those links that came to you back in the plugin's response. In subsequent requests to the plugin, aim to use at least 4 different links to gather more info",
   "auth": {
     "type": "service_http",
     "authorization_type": "bearer",

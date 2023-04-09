@@ -5,6 +5,7 @@ from quart import request
 import httpx
 from requests_html import HTML
 from bs4 import BeautifulSoup, Comment
+import json
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
 _SERVICE_AUTH_KEY = os.environ.get("_SERVICE_AUTH_KEY")
@@ -48,21 +49,33 @@ def filter_html(html, start, end):
     limited_words = words[start:end]
     return ' '.join(limited_words)
 
-@app.route('/getContentsOfPage', methods=['GET'])
-async def getContentsOfPage():
+@app.route('/getContentsOfPages', methods=['GET'])
+async def getContentsOfPages():
     assert_auth_header(request)
 
-    url = request.args.get('url', None)
-    start = int(request.args.get('start', 0))
-    end = int(request.args.get('end', -1))
+    input_data = request.args.get('data', None)
 
-    if not url:
-        return quart.Response(response='Missing URL parameter', status=400)
+    if not input_data:
+        return quart.Response(response='Missing input data', status=400)
 
-    raw_html = await fetch_url(url)
-    filtered_html = filter_html(raw_html, start, end)
+    input_data = json.loads(input_data)
 
-    return quart.Response(response=filtered_html, status=200)
+    results = {}
+    for url_data in input_data:
+        url = url_data.get('url', None)
+        start = int(url_data.get('start', 0))
+        end = int(url_data.get('end', -1))
+
+        if not url:
+            continue
+
+        raw_html = await fetch_url(url)
+        filtered_html = filter_html(raw_html, start, end)
+
+        results[url] = filtered_html
+
+    return quart.jsonify(results)
+
 
 @app.get("/logo.png")
 async def plugin_logo():
