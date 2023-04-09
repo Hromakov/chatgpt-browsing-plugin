@@ -6,22 +6,18 @@ import httpx
 from requests_html import HTML
 from bs4 import BeautifulSoup, Comment
 
-
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
 _SERVICE_AUTH_KEY = os.environ.get("_SERVICE_AUTH_KEY")
 
-
 def assert_auth_header(req):
     assert req.headers.get("Authorization", None) == f"Bearer {_SERVICE_AUTH_KEY}"
-
 
 async def fetch_url(url):
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         return response.text
 
-
-def filter_html(html, max_words=1000):
+def filter_html(html, start, end):
     soup = BeautifulSoup(html, 'html.parser')
 
     # Remove script and style tags
@@ -35,20 +31,22 @@ def filter_html(html, max_words=1000):
     # Get the text from the remaining tags
     text = soup.get_text()
     words = text.split()
-    limited_words = words[:max_words]
+    limited_words = words[start:end]
     return ' '.join(limited_words)
-
-
 
 @app.route('/callURL', methods=['GET'])
 async def callURL():
+    assert_auth_header(request)
+  
     url = request.args.get('url', None)
+    start = int(request.args.get('start', 0))
+    end = int(request.args.get('end', -1))
+
     if not url:
         return quart.Response(response='Missing URL parameter', status=400)
 
-    assert_auth_header(request)
     raw_html = await fetch_url(url)
-    filtered_html = filter_html(raw_html)
+    filtered_html = filter_html(raw_html, start, end)
     return quart.Response(response=filtered_html, status=200)
 
 

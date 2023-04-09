@@ -3,12 +3,12 @@
   "name_for_human": "Web Browsing Plugin",
   "name_for_model": "WebBrowsingPlugin",
   "description_for_human": "Gives ChatGPT access to browsing the web",
-  "description_for_model": "Use this Web Browsing Plugin to access the internet. You will be sending the URL to the plugin, and the plugin will fetch the content of the URL, returning the response in plain text. Use this plugin as many times as you think is necessary to fulfill the user's query.",
+  "description_for_model": "Use this Web Browsing Plugin to access the internet. You will be sending the URL to the plugin, and the plugin will fetch the content of the URL, returning the response in plain text within the specified range of words. Use this plugin as many times as you think is necessary to fulfill the user's query.",
   "auth": {
     "type": "service_http",
     "authorization_type": "bearer",
     "verification_tokens": {
-      "openai": "aaa0ab952e054029ba2326183a8d4b56"
+      "openai": "4eeeae670c0941ba860d1d148fe6476e"
     }
   },
   "api": {

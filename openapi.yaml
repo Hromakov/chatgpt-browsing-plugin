@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Web Browsing Plugin
-  description: Use this plugin to fetch web content in plain text
+  description: Use this plugin to fetch web content in plain text within a specified range of words
   version: 'v1'
 servers:
   - url: https://chatgpt-browsing-plugin.vovakhromakov.repl.co
@@ -9,7 +9,7 @@ paths:
   /callURL:
     get:
       operationId: callURL
-      summary: Fetch the text content of a given URL
+      summary: Fetch the text content of a given URL within a specified range of words
       parameters:
         - in: query
           name: url
@@ -17,6 +17,20 @@ paths:
           schema:
             type: string
           description: The URL to fetch the text content from
+        - in: query
+          name: start
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: The starting word index
+        - in: query
+          name: end
+          required: false
+          schema:
+            type: integer
+            default: -1
+          description: The ending word index
       responses:
         "200":
           description: OK
@@ -39,4 +53,4 @@ components:
   schemas:
     callURL:
       type: string
-      description: Text content of the website at the given URL
+      description: Text content of the website at the given URL within the specified range of words
