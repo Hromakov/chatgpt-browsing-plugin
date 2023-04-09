@@ -1,15 +1,15 @@
 openapi: 3.0.1
 info:
   title: Web Browsing Plugin
-  description: Use this plugin to fetch web content in plain text within a specified range of words
+  description: Use this plugin to fetch web content within a specified range of words
   version: 'v1'
 servers:
   - url: https://chatgpt-browsing-plugin.vovakhromakov.repl.co
 paths:
-  /callURL:
+  /getHumanReadableText:
     get:
-      operationId: callURL
-      summary: Fetch the text content of a given URL within a specified range of words
+      operationId: getHumanReadableText
+      summary: Fetch the human readable text content of a given URL within a specified range of words
       parameters:
         - in: query
           name: url
@@ -30,14 +30,57 @@ paths:
           schema:
             type: integer
             default: -1
-          description: The ending word index
+          description: The ending word index, which is ideally 2500 more than starting word index
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/callURL'
+                $ref: '#/components/schemas/getHumanReadableText'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /getLinksFromPage:
+    get:
+      operationId: getLinksFromPage
+      summary: Fetch the links from a given URL within a specified range of words
+      parameters:
+        - in: query
+          name: url
+          required: true
+          schema:
+            type: string
+          description: The URL to fetch the links from
+        - in: query
+          name: start
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: The starting word index
+        - in: query
+          name: end
+          required: false
+          schema:
+            type: integer
+            default: -1
+          description: The ending word index, which is ideally 2500 more than starting word index
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getLinksFromPage'
         "400":
           description: Bad Request
           content:
@@ -51,6 +94,11 @@ paths:
                   - message
 components:
   schemas:
-    callURL:
+    getHumanReadableText:
       type: string
       description: Text content of the website at the given URL within the specified range of words
+    getLinksFromPage:
+      type: array
+      items:
+        type: string
+      description: A list of links found at the given URL within the specified range of words

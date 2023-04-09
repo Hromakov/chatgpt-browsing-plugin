@@ -17,7 +17,7 @@ async def fetch_url(url):
         response = await client.get(url)
         return response.text
 
-def filter_html(html, start, end):
+def html_to_visible_text(html, start, end):
     soup = BeautifulSoup(html, 'html.parser')
 
     # Remove script and style tags
@@ -34,8 +34,8 @@ def filter_html(html, start, end):
     limited_words = words[start:end]
     return ' '.join(limited_words)
 
-@app.route('/callURL', methods=['GET'])
-async def callURL():
+@app.route('/getHumanReadableText', methods=['GET'])
+async def getHumanReadableText():
     assert_auth_header(request)
   
     url = request.args.get('url', None)
@@ -46,7 +46,38 @@ async def callURL():
         return quart.Response(response='Missing URL parameter', status=400)
 
     raw_html = await fetch_url(url)
-    filtered_html = filter_html(raw_html, start, end)
+    filtered_html = html_to_visible_text(raw_html, start, end)
+    return quart.Response(response=filtered_html, status=200)
+
+def html_to_list_of_links(html, start, end):
+    soup = BeautifulSoup(html, 'html.parser')
+
+  
+    links = []
+    for link in soup.find_all('a'):
+        href = link.get('href')
+        if href is not None:
+            links.append(href)
+    
+    #chatgpt, convert links to text here
+    text = " ".join(links)
+    words = text.split()
+    limited_words = words[start:end]
+    return ' '.join(limited_words)
+
+@app.route('/getLinksFromPage', methods=['GET'])
+async def getLinksFromPage():
+    assert_auth_header(request)
+  
+    url = request.args.get('url', None)
+    start = int(request.args.get('start', 0))
+    end = int(request.args.get('end', -1))
+
+    if not url:
+        return quart.Response(response='Missing URL parameter', status=400)
+
+    raw_html = await fetch_url(url)
+    filtered_html = html_to_list_of_links(raw_html, start, end)
     return quart.Response(response=filtered_html, status=200)
 
 
