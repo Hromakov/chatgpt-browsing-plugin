@@ -30,7 +30,7 @@ paths:
           schema:
             type: integer
             default: -1
-          description: The ending word index, which is ideally 2500 more than starting word index
+          description: The ending word index, which is ideally 12000 more than starting word index
       responses:
         "200":
           description: OK
