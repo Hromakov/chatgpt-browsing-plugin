@@ -1,0 +1,42 @@
+openapi: 3.0.1
+info:
+  title: Browsing plugin
+  description: Use this plugin to browse the web
+  version: 'v1'
+servers:
+  - url: https://shoppingassistantchatgptplugin.vovakhromakov.repl.co
+paths:
+  /callURL:
+    get:
+      operationId: callURL
+      summary: Get the html contents at given URL
+      parameters:
+        - in: query
+          name: url
+          required: true
+          schema:
+            type: string
+          description: The URL to fetch the HTML content from
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/callURL'
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+components:
+  schemas:
+    callURL:
+      type: string
+      description: html contents of the website at the given URL
