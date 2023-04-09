@@ -18,8 +18,13 @@ async def fetch_url(url):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
     }
     async with httpx.AsyncClient(headers=headers) as client:
-        response = await client.get(url)
-        return response.text
+        try:
+            response = await client.get(url)
+            return response.text
+        except Exception as e:
+            print(f"An error occurred while fetching the URL: {e}")
+            return ""
+
 
 def filter_html(html, start, end):
     soup = BeautifulSoup(html, 'html.parser')
