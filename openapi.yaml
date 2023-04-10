@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Web Browsing Plugin
-  description: Use this plugin to fetch web content from several URLs
+  description: Use this plugin to fetch web content from several URLs and perform Google searches
   version: 'v1'
 servers:
   - url: https://chatgpt-browsing-plugin.vovakhromakov.repl.co
@@ -34,6 +34,46 @@ paths:
                 additionalProperties:
                   type: string
                 description: A JSON object with the filtered content for each URL, starting from human readable text followed by a list of links
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+
+  /googleSearches:
+    post:
+      operationId: googleSearches
+      summary: Perform multiple Google searches and return results
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                queries:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 4
+                  description: The list of search queries
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                description: A JSON object with the Google search results for each query
         "400":
           description: Bad Request
           content:
