@@ -3,7 +3,7 @@
   "name_for_human": "Web Browsing Plugin",
   "name_for_model": "WebBrowsingPlugin",
   "description_for_human": "Gives ChatGPT access to browsing the web",
-  "description_for_model": "Use this plugin to fetch information from the web to answer user's questions. To find the answer, you will have to browser through several links, and you will always make the first request to google.com, no matter what the user asks. Your first request number include 4 different google searches with various phrasings to find more info. You will then use the plugin again to fetch information from links you got from google. In your response to the user, always include sources of information. You are only permitted to send to the plugin those links that you got back from the plugin response, unless it is google.com. To find the answer, please recursively browse through various links. Prioritize official websites. Remember that very often you have to recursively crawl through websites until you find the reliable answer.",
+  "description_for_model": "Use this plugin to fetch information from the web to answer user's questions. Every time, you must use the plugin at least 3 times in a row. First, use generalGoogleSearches to find domains of interest, then you must run googleSearchesOnSpecificSites on these domains, and only after that you can use getContentsOfPages. Do not ever skip googleSearchesOnSpecificSites, otherwise you will fail to accomplish your task. Also, it is important to keep search queries as short as possible",
   "auth": {
     "type": "service_http",
     "authorization_type": "bearer",

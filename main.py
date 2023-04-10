@@ -78,7 +78,8 @@ def filter_html(html, start, end):
 
     links_text = " ".join(links)
 
-    full_text = human_readable_text + "\n" + links_text
+    #full_text = human_readable_text + "\n" + links_text
+    full_text = human_readable_text 
 
     words = full_text.split()
     limited_words = words[start:end]
@@ -124,9 +125,9 @@ async def getContentsOfPages():
     # Return the truncated JSON string as a response
     return Response(json_results, content_type="application/json")
 
-# New API to handle multiple Google searches
-@app.route('/googleSearches', methods=['POST'])
-async def googleSearches():
+# New API to handle general Google searches
+@app.route('/generalGoogleSearches', methods=['POST'])
+async def generalGoogleSearches():
     assert_auth_header(request)
 
     input_data = await request.get_json()
@@ -140,6 +141,30 @@ async def googleSearches():
         results[query] = search_results
 
     return quart.jsonify(results)
+
+# New API to handle Google searches on specific sites
+@app.route('/googleSearchesOnSpecificSites', methods=['POST'])
+async def googleSearchesOnSpecificSites():
+    assert_auth_header(request)
+
+    input_data = await request.get_json()
+
+    if not input_data or not input_data.get('searches'):
+        return quart.Response(response='Missing input data', status=400)
+
+    results = {}
+    for search in input_data['searches']:
+        domain_to_search = search.get('domain_to_search')
+        query_to_search = search.get('query_to_search')
+
+        if not domain_to_search or not query_to_search:
+            return quart.Response(response='Missing domain or query in search object', status=400)
+
+        search_results = await google_search(f'site:{domain_to_search} {query_to_search}')
+        results[f"{domain_to_search}: {query_to_search}"] = search_results
+
+    return quart.jsonify(results)
+
 
 @app.get("/logo.png")
 async def plugin_logo():

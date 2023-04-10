@@ -6,6 +6,89 @@ info:
 servers:
   - url: https://chatgpt-browsing-plugin.vovakhromakov.repl.co
 paths:
+  /generalGoogleSearches:
+    post:
+      operationId: generalGoogleSearches
+      summary: Perform multiple Google searches and return results
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                queries:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 4
+                  description: The list of search queries. 
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                description: A JSON object with the Google search results for each query
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+  /googleSearchesOnSpecificSites:
+    post:
+      operationId: googleSearchesOnSpecificSites
+      summary: Perform multiple Google searches on specific sites and return results
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                searches:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      domain_to_search:
+                        type: string
+                        description: The domain to perform the search on.
+                      query_to_search:
+                        type: string
+                        description: The query to search for.
+                  minItems: 1
+                  description: The array of search objects, each containing a domain and a query.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                description: A JSON object with the Google search results for each query
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
   /getContentsOfPages:
     post:
       operationId: getContentsOfPages
@@ -34,46 +117,6 @@ paths:
                 additionalProperties:
                   type: string
                 description: A JSON object with the filtered content for each URL, starting from human readable text followed by a list of links
-        "400":
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                required:
-                  - message
-
-  /googleSearches:
-    post:
-      operationId: googleSearches
-      summary: Perform multiple Google searches and return results
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                queries:
-                  type: array
-                  items:
-                    type: string
-                  minItems: 4
-                  description: The list of search queries
-
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: object
-                description: A JSON object with the Google search results for each query
         "400":
           description: Bad Request
           content:
