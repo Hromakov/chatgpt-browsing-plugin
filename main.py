@@ -6,6 +6,7 @@ import httpx
 from requests_html import HTML
 from bs4 import BeautifulSoup, Comment
 import json
+from quart import Response
 
 app = quart_cors.cors(quart.Quart(__name__), allow_origin="https://chat.openai.com")
 _SERVICE_AUTH_KEY = os.environ.get("_SERVICE_AUTH_KEY")
@@ -81,7 +82,12 @@ def filter_html(html, start, end):
 
     words = full_text.split()
     limited_words = words[start:end]
-    return ' '.join(limited_words)
+    limited_text = ' '.join(limited_words)
+
+    
+
+    return limited_text
+
 
 @app.route('/getContentsOfPages', methods=['POST'])
 async def getContentsOfPages():
@@ -106,7 +112,17 @@ async def getContentsOfPages():
 
         results[url] = filtered_html
 
-    return quart.jsonify(results)
+
+
+    # Convert the results dictionary to a JSON string
+    json_results = json.dumps(results)
+    
+    # Truncate the JSON string to 99000 characters
+    if(len(json_results) > 99800):
+      json_results = "The output was truncated to 99800, which is the maximum. Request less URLs to get full responses. " + json_results[:99000]
+    
+    # Return the truncated JSON string as a response
+    return Response(json_results, content_type="application/json")
 
 # New API to handle multiple Google searches
 @app.route('/googleSearches', methods=['POST'])
